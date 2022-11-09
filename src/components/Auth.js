@@ -15,7 +15,7 @@ const Authorizer = ({children}) => {
           title: "OOops!!",
           text: "You need to be logged in",
         });
-        return <Navigate to="/main/login" />;
+        return <Navigate to="/login" />;
       }
 
       return children;

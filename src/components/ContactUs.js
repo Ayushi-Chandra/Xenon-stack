@@ -1,148 +1,189 @@
-import React from 'react'
-import { Formik } from 'formik';
+import { Container,  TextField, Button, Grid } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import Stack from "@mui/material/Stack";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CallIcon from '@mui/icons-material/Call';
+import EmailIcon from '@mui/icons-material/Email';
+import { Formik } from "formik";
+import app_config from "../config";
 import Swal from "sweetalert2";
-import { TextField } from '@mui/material';
+
+import React from "react";
 
 const ContactUs = () => {
-    const userSubmit = async (formdata) => {
-        console.log(formdata);
-    
-        const response = await fetch("http://localhost:5000/user/authenticate", {
-          method: "POST",
-          body: JSON.stringify(formdata), //converting javascript object to json
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-    
-        if (response.status === 200) {
-          console.log("success");
-          Swal.fire({
-            icon: "success",
-            title: "Well Done👍",
-            text: "You have done a wonderful job!",
-          });
-        } else {
-          console.log("error occured");
-        }
-      };
-    
-  return (
-    <section
-  className="vh-100 bg-image"
-  style={{
-    backgroundImage:
-      'url("https://www.wallpaperup.com/uploads/wallpapers/2012/10/02/17732/d24d52e2ab9c7933e839687ecc369cac-700.jpg")'
-    
-  }}
->
-  <div className="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div className="container h-100">
-      <div className="row d-flex justify-content-center align-items-center h-100">
-        <div className="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div className="card" style={{ borderRadius: 15 }}>
-            <div className="card-body p-5">
-              <h2 className="text-uppercase text-center mb-5">
-               ContactUs
+  const contactupStyles = {
+    background: "url(https://wallpaperaccess.com/full/1223823.jpg)",
+    height: "100%",
+  };
 
-              </h2>
+  const url = app_config.backend_url;
+
+  //   1. Create the form object
+
+  const userForm = {
+    name: "",
+    email: "",
+    mobile:"",
+    subject: "",
+    message: "",
+  };
+
+  
+ 
+  const feedbackSubmit = (formdata) => {
+    console.log(formdata);
+
+   
+    // asynchronous function returns promise
+    fetch(url + "/add", {
+      method: "POST",
+      body: JSON.stringify(formdata),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        console.log(res.status);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        Swal.fire({
+          icon: "success",
+          title: "Message Successfully Sent!!",
+        });
+      });
+  };
+
+ 
+  const formBody = ({ values, handleSubmit, handleChange }) => {
+  return (
+    <Container >
+    <div className="mb-4 " >
+      <p className=" font-weight-bold text-center my-4" style={{letterSpacing:"3px", color:"purple", fontSize:"70px", fontWeight:"200px", fontFamily:"'Calligraffitti', cursive"}} >
+        Get in Touch
+      </p>
+
+      <p className="text-center w-responsive mx-auto mb-5" style={{letterSpacing:"3px",fontFamily:"Tapestry", color:"red", fontSize:"20px", fontWeight:"200px"}}>
+        Do you have any questions? Please do not hesitate to contact us
+        directly. Our team will come back to you within a matter of hours to
+        help you.
+      </p>
+
+      <div className="row">
+        <div className="col-md-9 mb-md-0 mb-5">
+
+          <form onSubmit={handleSubmit}>
+            <Stack direction="row" spacing={5}>
+                <TextField
+                  className="w-50 "
+                    type="text"
+                    id="name"
+                    label="Your Name"
+                   varient="outlined"
+                   onChange={handleChange}
+                   value={values.name}/>
             
-              <Formik initialValues={{
-               username:"",
-               email:"",
-               subject:"",
-               message:"",
-             }}
-             onSubmit={userSubmit}
-                        // validationSchema={SignupSchema}
-                      >
-                        {({ values, handleChange, handleSubmit, errors }) => (
-                          <form
-                            onSubmit={handleSubmit}
-                            className="mx-1 mx-md-4"
-                          >
-              
-                <div className="form-outline mb-4">
-                <TextField value={values.username}
-                            onChange={handleChange}
-                            id="username"
-                            sx={{ mt: 5 }}
-                            fullWidth
-                            label="User Name"
-                            type="text"
-                            className="form-control" />
-                  
-                </div>
-                <div className="form-outline mb-4">
-                <TextField value={values.email}
-                            onChange={handleChange}
-                            id="email"
-                            sx={{ mt: 5 }}
-                            fullWidth
-                            label="Email"
-                            type="text"
-                            className="form-control" />
-                
-                </div>
-                <div className="form-outline mb-4">
-                <TextField
-                value={values.subject}
-                onChange={handleChange}
-                type="text"
-                id="subject"
-                className="form-control"
-         
-          label="Subject"
-          placeholder="Write the subject"
-          multiline
-        />
-                </div>
-                <div className="form-outline mb-4">
-                <TextField
-                value={values.message}
-                onChange={handleChange}
-                type="text"
-                id="message"
-                className="form-control"
-         
-          label="Message"
-          placeholder="Write your message..."
-          multiline
-        />
-                
-                </div>
-                <div className="form-check d-flex justify-content-center mb-5">
-                  <input
-                    className="form-check-input me-2"
-                    type="checkbox"
-                    defaultValue=""
-                    id="form2Example3cg"
-                  />
-                  <label className="form-check-label" htmlFor="form2Example3g">
-                   Send me copy{" "}
-                    
-                  </label>
-                </div>
-                <div className="d-flex justify-content-center">
-                  <button
-                    type="button"
-                    className="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
-                  >
-                    Send
-                  </button>
-                </div>
-                
-              </form>
-                        )}
-                        </Formik>
-            </div>
-          </div>
+                  <TextField
+                  className="w-50 "
+                    type="email"
+                    id="email"
+                    label="Your Email"
+                   varient="outlined" 
+                   onChange={handleChange}
+                   value={values.email}/>
+              </Stack>
+              <Stack direction="column" spacing={3} >
+              <TextField
+                  sx={{mt:3}}
+                  className="w-100 "
+                    type="number"
+                    id="mobile"
+                    label="Your Contact No"
+                   varient="outlined"
+                   onChange={handleChange}
+                   value={values.mobile}/>
+              <TextField
+                  className="w-100 "
+                    type="text"
+                    id="subject"
+                    label="Subject"
+                   varient="outlined"
+                   onChange={handleChange}
+                   value={values.subject}/>
+              <TextField
+                  className="w-100 "
+                    type="text"
+                    id="message"
+                    label="Your Message"
+                    multiline
+                    rows={2}
+                   varient="outlined"
+                   onChange={handleChange}
+                   value={values.message}/>
+                   </Stack>            
+             
+          <Stack sx={{mt:5}}>
+        <Button 
+        variant="contained" 
+        color="secondary" 
+        size="large" 
+        endIcon={<SendIcon />}>
+        Send
+        </Button>
+        </Stack>
+          </form>
+
+        </div>
+
+        <div class="col-md-3 text-center">
+          <ul class="list-unstyled mb-0">
+            <li>
+           
+            <Grid item xl={15}>
+            <LocationOnIcon sx={{ fontSize: 45 }} color="secondary"/>
+           </Grid>
+           <Grid item xl={15} sx={{mb:2}}>
+           <Button variant="text" color="inherit" href="#contained-buttons">
+           IIM Road Lucknow
+           </Button>
+           </Grid>
+            </li>
+
+            <li>
+            <Grid item xl={15}>
+            <CallIcon sx={{ fontSize: 45 }} color="secondary"/>
+           </Grid>
+           <Grid item xl={15} sx={{mb:2}} >
+           <Button variant="text" color="inherit" href="#contained-buttons">
+           +91 9151636176
+           </Button>
+           </Grid>
+           </li>
+
+            <li>
+            <Grid item xl={15}>
+            <EmailIcon sx={{ fontSize: 45 }} color="secondary"/>
+           </Grid>
+           <Grid item xl={15} sx={{mb:2}}>
+           <Button variant="text" color="inherit" href="#contained-buttons">
+           ayushi@gmail.com
+           </Button>
+           </Grid>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-  </div>
-</section>
-  )
-}
+    </Container>
 
-export default ContactUs
+   
+  );
+};
+     return (
+   
+      <Formik initialValues={userForm} onSubmit={feedbackSubmit}>
+        {formBody}
+      </Formik>
+  );
+};
+
+export default ContactUs;

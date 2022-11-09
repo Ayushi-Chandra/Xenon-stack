@@ -1,10 +1,24 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { AppProvider } from "./AppContext";
+
+
 
 const Header = () => {
+  const url = "http://localhost:5000";
+  const [currentUser , setCurrentUser]=  useState(JSON.parse(sessionStorage.getItem('user')))
+  const {loggedIn,setloggedIn} = useContext(AppContext);
+  const navigate = useNavigate();
+  const logout =()=>{
+    //destroy session value 
+    sessionStorage.removeItem('user');
+    //  setloggedIn to false
+    setloggedIn(false)
+    //  navigate to login page
+    navigate('/home')
+  }
   return (
-    
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
       
       <div className="container-fluid">
         
@@ -23,34 +37,33 @@ const Header = () => {
         
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           
-          
+          <a className="navbar-brand mt-2 mt-lg-0" href="#">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+              height="15"
+              alt="MDB Logo"
+              loading="lazy"
+            />
+          </a>
           
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/dashboad">Dashboard</NavLink>
+              <NavLink className="nav-link" to="/user/profile">Profile</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/manageuser">Manage user</NavLink>
+              <NavLink className="nav-link" to="/user/manageblog">Manage Blog</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/profie">Profile</NavLink>
+              <NavLink className="nav-link" to="/user/managevideo">Manage Video</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/admin/addlocation">Add location</NavLink>
+              <NavLink className="nav-link" to="/user/listblog">List Blog</NavLink>
             </li>
-            <li className='nav-item'>
-              <NavLink className="nav-link" to="/admin/managelocation">Manage location</NavLink>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/user/addblog">Add Blog</NavLink>
+            </li>
+           
 
-            </li>
-            <li className='nav-item'>
-              <NavLink className="nav-link" to="/admin/vieworders">View orders</NavLink>
-
-            </li>
-            <li className='nav-item'>
-              <NavLink className="nav-link" to="/admin/videomanager">Video Manager</NavLink>
-
-            </li>
-            
           </ul>
           
         </div>
@@ -119,9 +132,18 @@ const Header = () => {
               <li>
                 <a className="dropdown-item" href="#">Settings</a>
               </li>
-              <li>
+              {/*<li>
                 <a className="dropdown-item" href="#">Logout</a>
+  </li>*/}
+              {
+              // currentUser=== null?
+              !loggedIn?
+              <li className="nav-item">
+                <NavLink className="btn btn-primary" to="/main/login">Login Now</NavLink>
               </li>
+              :
+              <button onClick={logout} className="btn btn-danger">Logout</button>
+            }
             </ul>
           </div>
         </div>
@@ -129,7 +151,6 @@ const Header = () => {
       </div>
       
     </nav>
-    
   )
 }
 
