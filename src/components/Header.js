@@ -1,7 +1,7 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { AppProvider } from "./AppContext";
-
+import React, { useContext } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { AppContext } from "../AppContext";
+import { useState } from "react";
 
 
 const Header = () => {
@@ -48,20 +48,15 @@ const Header = () => {
           
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/user/profile">Profile</NavLink>
+              <NavLink className="nav-link" to="/login">Login</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/user/manageblog">Manage Blog</NavLink>
+              <NavLink className="nav-link" to="/list">List of Product</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/user/managevideo">Manage Video</NavLink>
+              <NavLink className="nav-link" to="/contactus">Contact us</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/user/listblog">List Blog</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/user/addblog">Add Blog</NavLink>
-            </li>
+            
            
 
           </ul>

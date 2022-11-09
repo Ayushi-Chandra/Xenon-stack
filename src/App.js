@@ -5,6 +5,7 @@ import { useState } from "react";
 import Login from './components/Login';
 import Signup from './components/Signup';
 import { BrowserRouter, Route, Link, Routes, Navigate } from 'react-router-dom';
+import Header from './components/Header';
 
 
 
@@ -25,6 +26,7 @@ function App() {
       
 
       <BrowserRouter>
+      <Header/>
         <Routes>
 
           <Route path="/" element={
