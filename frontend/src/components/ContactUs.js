@@ -35,7 +35,7 @@ const ContactUs = () => {
 
    
     // asynchronous function returns promise
-    fetch(url + "/add", {
+    fetch(url + "/contact/add", {
       method: "POST",
       body: JSON.stringify(formdata),
       headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ const ContactUs = () => {
       </p>
 
       <div className="row">
-        <div className="col-md-9 mb-md-0 mb-5">
+        <div class="col-md-9 mb-md-0 mb-5">
 
           <form onSubmit={handleSubmit}>
             <Stack direction="row" spacing={5}>
@@ -143,7 +143,7 @@ const ContactUs = () => {
            </Grid>
            <Grid item xl={15} sx={{mb:2}}>
            <Button variant="text" color="inherit" href="#contained-buttons">
-           IIM Road Lucknow
+           Xenon-stack
            </Button>
            </Grid>
             </li>
@@ -154,7 +154,7 @@ const ContactUs = () => {
            </Grid>
            <Grid item xl={15} sx={{mb:2}} >
            <Button variant="text" color="inherit" href="#contained-buttons">
-           +91 9151636176
+           +91 254104825
            </Button>
            </Grid>
            </li>
@@ -165,7 +165,7 @@ const ContactUs = () => {
            </Grid>
            <Grid item xl={15} sx={{mb:2}}>
            <Button variant="text" color="inherit" href="#contained-buttons">
-           ayushi@gmail.com
+           sbfjn@xs
            </Button>
            </Grid>
             </li>

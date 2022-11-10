@@ -8,6 +8,7 @@ const myschema = new Schema({
     subject: String,
     avatar: String,
     createdAt: String,
+    mobile: Number,
     
 });
 

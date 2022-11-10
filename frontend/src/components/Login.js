@@ -58,8 +58,7 @@ const Login = () => {
     <div>
     <section className="vh-100 bg-image"
       style={{
-        backgroundImage:
-          'url("")'
+        backgroundImage:'url("https://www.wallpaperup.com/uploads/wallpapers/2012/10/02/17732/d24d52e2ab9c7933e839687ecc369cac-700.jpg")'
       }}>
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
